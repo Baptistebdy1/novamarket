@@ -35,7 +35,7 @@ SELECT (SELECT COUNT(*) FROM public.customers) AS clients,
        (SELECT COUNT(*) FROM public.orders) AS commandes,
        (SELECT COUNT(*) FROM public.order_items) AS articles,
        (SELECT COUNT(*) FROM public.payments) AS paiements,
-       (SELECT COUNT(*) FROM qualite.rejets) AS rejets,
+       (SELECT COUNT(*) FROM qualite.rejets WHERE source = 'order_items.csv') AS rejets,
        (
            SELECT COUNT(*)
            FROM public.orders AS o

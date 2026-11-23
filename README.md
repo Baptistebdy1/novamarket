@@ -33,7 +33,7 @@ docker compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U atelier -d novamar
   -f /s1/sql/04_indicateurs.sql -f /s1/sql/05_anomalies.sql
 ```
 
-## État du projet
+## État de la S1
 
 - **M1** · [Schéma relationnel annoté](s1/preuves/schema-relationnel.md).
 - **M2** · [Bilan d’import](s1/preuves/bilan-import.md) validé dans PostgreSQL. Le contrôle de reprise doit afficher 180 clients, 400 commandes, 800 articles, 480 paiements, 2 rejets et 0 commande sans article.
@@ -41,4 +41,52 @@ docker compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U atelier -d novamar
 - **M4** · [Tableau des anomalies](s1/preuves/anomalies.md) confirmé par l’exécution du script dans PostgreSQL.
 - **M5** · Les scripts de reprise ont été exécutés sur le volume PostgreSQL. Les contrôles ont confirmé les indicateurs, les volumes et l’absence de commande sans article.
 
-Les scripts de création et d’intégration servent au premier chargement. Les contrôles d’import couvrent les anomalies observées dans le périmètre S1. Le catalogue et les remboursements sont hors du périmètre traité. Le dépôt GitHub privé et l’identification du commit sont à effectuer avant le rendu collectif de fin de S2.
+Les scripts de création et d’intégration S1 servent au premier chargement. Les contrôles d’import couvrent les anomalies observées. Les remboursements ne sont pas renseignés par les sources.
+
+## Séance 2
+
+| Mission | Preuves |
+| --- | --- |
+| M1 · Intégrer le catalogue | [Scripts d’import et contrôles](s2/sql/) · [Bilan du catalogue](s2/preuves/catalogue.md) |
+| M2 · Écrire les analyses avancées | [Requêtes](s2/sql/03_analyses.sql) · [Résultats et limites](s2/preuves/analyses.md) |
+| M3 · Mesurer le benchmark | [Script de mesure et index](s3/sql/01_benchmark.sql) · [Mesures et interprétation](s3/preuves/benchmark.md) · [Plans complets](s3/preuves/plans-postgresql.txt) |
+| M4 · Préparer le rendu | Scripts S1 et S2, preuves et commandes de reprise dans ce dépôt |
+
+### Charger le catalogue
+
+Depuis la racine, sur la même base après l’import S1, exécuter ce chargement une seule fois.
+
+```bash
+docker compose exec -T postgres mkdir -p /tmp/novamarket-s2
+docker compose cp s2/donnees/. postgres:/tmp/novamarket-s2/
+docker compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U atelier -d novamarket < s2/sql/01_catalogue.sql
+```
+
+Les contrôles et analyses peuvent être relancés. Le bilan attendu est de 10 catégories, 24 produits, 1 rejet de catalogue et 0 article S1 sans produit.
+
+```bash
+docker compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U atelier -d novamarket < s2/sql/02_controles_catalogue.sql
+docker compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U atelier -d novamarket < s2/sql/03_analyses.sql
+docker compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U atelier -d novamarket < s2/sql/04_complements.sql
+```
+
+### Refaire le benchmark
+
+Générer les 10 millions de lignes une seule fois si le schéma `benchmark` est absent. Cette opération ajoute un jeu de ventes simulées séparé.
+
+```bash
+docker compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U atelier -d novamarket < s3/generer.sql
+```
+
+Relancer ensuite les mesures avec ce script. Il vérifie le volume et exige un départ sans index sur la table de benchmark. Il annule son index à la fin. La sortie est enregistrée dans `plans-docker.txt` dans le dossier temporaire.
+
+```bash
+docker compose exec -T postgres psql -X -v ON_ERROR_STOP=1 -U atelier -d novamarket \
+  < s3/sql/01_benchmark.sql > /tmp/plans-docker.txt
+```
+
+Deux pièges à retenir. Un index peut être ignoré si le filtre sélectionne presque toute la table. Une jointure directe des articles et des paiements peut répéter les montants. On agrège les deux tables séparément avant de les joindre par commande.
+
+Les scripts commerciaux et les 10 millions de lignes du benchmark ont été vérifiés sur PostgreSQL 18.6 embarqué. Les plans fournis correspondent à ce moteur. La reprise dans Docker utilise PostgreSQL 17 et peut donner d’autres temps ou plans. Voir le [guide de sauvegarde](SAUVEGARDE_SQL.md).
+
+Pour le rendu, communiquer l’URL du dépôt privé et le SHA du commit publié. `git log -1 --oneline` permet de retrouver le dernier commit du dossier.

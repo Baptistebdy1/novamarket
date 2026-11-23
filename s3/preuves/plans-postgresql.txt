@@ -1,0 +1,168 @@
+{"version_postgresql":"PostgreSQL 18.6 (PGlite 0.5.10) on wasm32-unknown-emscripten, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.5 (1db513782be24469589d7cb8a1f1834e9a33f271), 32-bit","shared_buffers":"128MB","taille_bloc_octets":"8192","workers_paralleles":"0"}
+{"lignes":10000000,"magasin_42":100,"magasin_1":9500000,"taille_table":"498 MB"}
+{"mesure":"avant magasin=42 essai=0"}
+Aggregate  (cost=188744.93..188744.94 rows=1 width=8) (actual time=435.177..435.179 rows=1.00 loops=1)
+  Buffers: shared hit=98 read=63646
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=371 width=4) (actual time=0.237..434.814 rows=100.00 loops=1)
+        Filter: (store_id = 42)
+        Rows Removed by Filter: 9999900
+        Buffers: shared hit=98 read=63646
+Planning:
+  Buffers: shared hit=5 read=1
+Planning Time: 0.230 ms
+Execution Time: 435.233 ms
+
+{"mesure":"avant magasin=1 essai=0"}
+Aggregate  (cost=212504.00..212504.01 rows=1 width=8) (actual time=1917.097..1917.099 rows=1.00 loops=1)
+  Buffers: shared hit=196 read=63548
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=9504000 width=4) (actual time=0.015..1049.573 rows=9500000.00 loops=1)
+        Filter: (store_id = 1)
+        Rows Removed by Filter: 500000
+        Buffers: shared hit=196 read=63548
+Planning Time: 0.063 ms
+Execution Time: 1917.121 ms
+
+{"mesure":"avant magasin=42 essai=1"}
+Aggregate  (cost=188744.93..188744.94 rows=1 width=8) (actual time=420.763..420.764 rows=1.00 loops=1)
+  Buffers: shared hit=294 read=63450
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=371 width=4) (actual time=0.051..420.677 rows=100.00 loops=1)
+        Filter: (store_id = 42)
+        Rows Removed by Filter: 9999900
+        Buffers: shared hit=294 read=63450
+Planning Time: 0.058 ms
+Execution Time: 420.786 ms
+
+{"mesure":"avant magasin=1 essai=1"}
+Aggregate  (cost=212504.00..212504.01 rows=1 width=8) (actual time=1898.505..1898.511 rows=1.00 loops=1)
+  Buffers: shared hit=392 read=63352
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=9504000 width=4) (actual time=0.015..1058.528 rows=9500000.00 loops=1)
+        Filter: (store_id = 1)
+        Rows Removed by Filter: 500000
+        Buffers: shared hit=392 read=63352
+Planning Time: 0.059 ms
+Execution Time: 1898.531 ms
+
+{"mesure":"avant magasin=42 essai=2"}
+Aggregate  (cost=188744.93..188744.94 rows=1 width=8) (actual time=419.986..419.987 rows=1.00 loops=1)
+  Buffers: shared hit=490 read=63254
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=371 width=4) (actual time=0.057..419.902 rows=100.00 loops=1)
+        Filter: (store_id = 42)
+        Rows Removed by Filter: 9999900
+        Buffers: shared hit=490 read=63254
+Planning Time: 0.058 ms
+Execution Time: 420.008 ms
+
+{"mesure":"avant magasin=1 essai=2"}
+Aggregate  (cost=212504.00..212504.01 rows=1 width=8) (actual time=1908.061..1908.063 rows=1.00 loops=1)
+  Buffers: shared hit=588 read=63156
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=9504000 width=4) (actual time=0.016..1064.498 rows=9500000.00 loops=1)
+        Filter: (store_id = 1)
+        Rows Removed by Filter: 500000
+        Buffers: shared hit=588 read=63156
+Planning Time: 0.065 ms
+Execution Time: 1908.083 ms
+
+{"mesure":"avant magasin=42 essai=3"}
+Aggregate  (cost=188744.93..188744.94 rows=1 width=8) (actual time=429.917..429.918 rows=1.00 loops=1)
+  Buffers: shared hit=686 read=63058
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=371 width=4) (actual time=0.054..429.795 rows=100.00 loops=1)
+        Filter: (store_id = 42)
+        Rows Removed by Filter: 9999900
+        Buffers: shared hit=686 read=63058
+Planning Time: 0.062 ms
+Execution Time: 429.939 ms
+
+{"mesure":"avant magasin=1 essai=3"}
+Aggregate  (cost=212504.00..212504.01 rows=1 width=8) (actual time=1890.117..1890.118 rows=1.00 loops=1)
+  Buffers: shared hit=784 read=62960
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=9504000 width=4) (actual time=0.016..1053.552 rows=9500000.00 loops=1)
+        Filter: (store_id = 1)
+        Rows Removed by Filter: 500000
+        Buffers: shared hit=784 read=62960
+Planning Time: 0.059 ms
+Execution Time: 1890.139 ms
+
+{"creation_index_ms":"2924.000","taille_index_octets":69279744,"taille_index":"66 MB"}
+{"mesure":"apres magasin=42 essai=0"}
+Aggregate  (cost=286.64..286.65 rows=1 width=8) (actual time=0.379..0.379 rows=1.00 loops=1)
+  Buffers: shared hit=1 read=102
+  ->  Index Scan using benchmark_sales_store_idx on benchmark_sales  (cost=0.43..285.72 rows=371 width=4) (actual time=0.041..0.362 rows=100.00 loops=1)
+        Index Cond: (store_id = 42)
+        Index Searches: 1
+        Buffers: shared hit=1 read=102
+Planning:
+  Buffers: shared hit=4 read=1
+Planning Time: 0.162 ms
+Execution Time: 0.393 ms
+
+{"mesure":"apres magasin=1 essai=0"}
+Aggregate  (cost=212504.00..212504.01 rows=1 width=8) (actual time=1939.368..1939.370 rows=1.00 loops=1)
+  Buffers: shared hit=1079 read=62665
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=9504000 width=4) (actual time=0.016..1091.216 rows=9500000.00 loops=1)
+        Filter: (store_id = 1)
+        Rows Removed by Filter: 500000
+        Buffers: shared hit=1079 read=62665
+Planning Time: 0.031 ms
+Execution Time: 1939.387 ms
+
+{"mesure":"apres magasin=42 essai=1"}
+Aggregate  (cost=286.64..286.65 rows=1 width=8) (actual time=0.080..0.080 rows=1.00 loops=1)
+  Buffers: shared hit=103
+  ->  Index Scan using benchmark_sales_store_idx on benchmark_sales  (cost=0.43..285.72 rows=371 width=4) (actual time=0.013..0.067 rows=100.00 loops=1)
+        Index Cond: (store_id = 42)
+        Index Searches: 1
+        Buffers: shared hit=103
+Planning Time: 0.092 ms
+Execution Time: 0.098 ms
+
+{"mesure":"apres magasin=1 essai=1"}
+Aggregate  (cost=212504.00..212504.01 rows=1 width=8) (actual time=1900.213..1900.215 rows=1.00 loops=1)
+  Buffers: shared hit=1177 read=62567
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=9504000 width=4) (actual time=0.022..1059.426 rows=9500000.00 loops=1)
+        Filter: (store_id = 1)
+        Rows Removed by Filter: 500000
+        Buffers: shared hit=1177 read=62567
+Planning Time: 0.039 ms
+Execution Time: 1900.230 ms
+
+{"mesure":"apres magasin=42 essai=2"}
+Aggregate  (cost=286.64..286.65 rows=1 width=8) (actual time=0.075..0.075 rows=1.00 loops=1)
+  Buffers: shared hit=103
+  ->  Index Scan using benchmark_sales_store_idx on benchmark_sales  (cost=0.43..285.72 rows=371 width=4) (actual time=0.013..0.062 rows=100.00 loops=1)
+        Index Cond: (store_id = 42)
+        Index Searches: 1
+        Buffers: shared hit=103
+Planning Time: 0.079 ms
+Execution Time: 0.091 ms
+
+{"mesure":"apres magasin=1 essai=2"}
+Aggregate  (cost=212504.00..212504.01 rows=1 width=8) (actual time=1907.531..1907.532 rows=1.00 loops=1)
+  Buffers: shared hit=1275 read=62469
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=9504000 width=4) (actual time=0.020..1065.737 rows=9500000.00 loops=1)
+        Filter: (store_id = 1)
+        Rows Removed by Filter: 500000
+        Buffers: shared hit=1275 read=62469
+Planning Time: 0.025 ms
+Execution Time: 1907.545 ms
+
+{"mesure":"apres magasin=42 essai=3"}
+Aggregate  (cost=286.64..286.65 rows=1 width=8) (actual time=0.076..0.076 rows=1.00 loops=1)
+  Buffers: shared hit=103
+  ->  Index Scan using benchmark_sales_store_idx on benchmark_sales  (cost=0.43..285.72 rows=371 width=4) (actual time=0.012..0.063 rows=100.00 loops=1)
+        Index Cond: (store_id = 42)
+        Index Searches: 1
+        Buffers: shared hit=103
+Planning Time: 0.078 ms
+Execution Time: 0.094 ms
+
+{"mesure":"apres magasin=1 essai=3"}
+Aggregate  (cost=212504.00..212504.01 rows=1 width=8) (actual time=1900.719..1900.720 rows=1.00 loops=1)
+  Buffers: shared hit=1373 read=62371
+  ->  Seq Scan on benchmark_sales  (cost=0.00..188744.00 rows=9504000 width=4) (actual time=0.015..1060.839 rows=9500000.00 loops=1)
+        Filter: (store_id = 1)
+        Rows Removed by Filter: 500000
+        Buffers: shared hit=1373 read=62371
+Planning Time: 0.023 ms
+Execution Time: 1900.733 ms
+
+{"indexes_apres_rollback":0}
