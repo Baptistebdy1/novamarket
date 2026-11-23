@@ -1,0 +1,40 @@
+digraph NovaMarket {
+    graph [
+        rankdir=LR, bgcolor="white", pad=0.3, nodesep=0.40, ranksep=1.0,
+        label="NovaMarket · Schéma relationnel S1", labelloc=t,
+        fontname="Helvetica Bold", fontsize=23, fontcolor="#14263D"
+    ]
+    node [shape=plain, fontname="Helvetica", fontsize=13, fontcolor="#14263D"]
+    edge [dir=none, color="#526B83", penwidth=1.5, fontname="Helvetica Bold",
+          fontcolor="#14263D", fontsize=13, labeldistance=1.7, labelangle=28]
+
+    customers [label=<
+        <TABLE BORDER="1" COLOR="#A9BBCB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" BGCOLOR="#F4F8FC">
+            <TR><TD BGCOLOR="#184666" ALIGN="LEFT"><FONT COLOR="white"><B>customers</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT" BALIGN="LEFT"><B>PK</B>  customer_id<BR ALIGN="LEFT"/>customer_name<BR ALIGN="LEFT"/>city</TD></TR>
+        </TABLE>
+    >]
+    orders [label=<
+        <TABLE BORDER="1" COLOR="#A9BBCB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" BGCOLOR="#F4F8FC">
+            <TR><TD BGCOLOR="#184666" ALIGN="LEFT"><FONT COLOR="white"><B>orders</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT" BALIGN="LEFT"><B>PK</B>  order_id<BR ALIGN="LEFT"/><B>FK</B>  customer_id<BR ALIGN="LEFT"/>ordered_on<BR ALIGN="LEFT"/>status</TD></TR>
+        </TABLE>
+    >]
+    order_items [label=<
+        <TABLE BORDER="1" COLOR="#A9BBCB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" BGCOLOR="#F4F8FC">
+            <TR><TD BGCOLOR="#184666" ALIGN="LEFT"><FONT COLOR="white"><B>order_items</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT" BALIGN="LEFT"><B>PK</B>  order_item_id<BR ALIGN="LEFT"/><B>FK</B>  order_id<BR ALIGN="LEFT"/>product_id<BR ALIGN="LEFT"/>quantity<BR ALIGN="LEFT"/>unit_price_cents</TD></TR>
+        </TABLE>
+    >]
+    payments [label=<
+        <TABLE BORDER="1" COLOR="#A9BBCB" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" BGCOLOR="#F4F8FC">
+            <TR><TD BGCOLOR="#184666" ALIGN="LEFT"><FONT COLOR="white"><B>payments</B></FONT></TD></TR>
+            <TR><TD ALIGN="LEFT" BALIGN="LEFT"><B>PK</B>  payment_id<BR ALIGN="LEFT"/><B>FK</B>  order_id<BR ALIGN="LEFT"/>paid_on<BR ALIGN="LEFT"/>amount_cents<BR ALIGN="LEFT"/>status</TD></TR>
+        </TABLE>
+    >]
+
+    { rank=same; order_items; payments }
+    customers -> orders [taillabel="1,1", headlabel="0,N", label="passe"]
+    orders -> order_items [taillabel="1,1", headlabel="1,N", label="contient"]
+    orders -> payments [taillabel="1,1", headlabel="0,N", label="enregistre"]
+}
