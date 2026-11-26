@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+ingestion/data/raw/*.jsonl
+ingestion/data/rejected/*.jsonl
+ingestion/data/logs/*.jsonl
+ingestion/data/valid/.offres-*.tmp
+transformation/dbt/target/
+transformation/dbt/logs/
+transformation/dbt/dbt_packages/
+s4/travail/logs/
+.env

@@ -90,3 +90,10 @@ Deux pièges à retenir. Un index peut être ignoré si le filtre sélectionne p
 Les scripts commerciaux et les 10 millions de lignes du benchmark ont été vérifiés sur PostgreSQL 18.6 embarqué. Les plans fournis correspondent à ce moteur. La reprise dans Docker utilise PostgreSQL 17 et peut donner d’autres temps ou plans. Voir le [guide de sauvegarde](SAUVEGARDE_SQL.md).
 
 Pour le rendu, communiquer l’URL du dépôt privé et le SHA du commit publié. `git log -1 --oneline` permet de retrouver le dernier commit du dossier.
+
+## Séance 3 · Ingestion asynchrone
+
+Le TP S3 ajoute une API locale `fournisseur` et un collecteur Python dans [ingestion/](ingestion/README.md). Le benchmark du rendu S2 reste rangé dans `s3/`.
+
+- [Contrat HTTP, essais et bilan](ingestion/preuves.md).
+- [Offres valides à reprendre en S4](ingestion/data/valid/offres.jsonl).
