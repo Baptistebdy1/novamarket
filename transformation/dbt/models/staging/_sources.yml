@@ -1,0 +1,35 @@
+version: 2
+
+# M2 · Tables déjà présentes dans PostgreSQL (non construites par dbt).
+# On les appelle avec source('<name>', '<table>') : dbt connaît ainsi les entrées du DAG.
+sources:
+  - name: fournisseur
+    description: "Offres fournisseurs chargées par transformation/chargement_postgres.py (S4 · M1)."
+    schema: fournisseur
+    tables:
+      - name: offres_observations
+        description: "Grain : une offre d'un fournisseur observée à une date. Clé (supplier_id, offer_id, observed_on)."
+        columns:
+          - name: supplier_id
+            tests: [not_null]
+          - name: offer_id
+            tests: [not_null]
+          - name: observed_on
+            tests: [not_null]
+      - name: fournisseurs
+        description: "Référentiel des fournisseurs autorisés (F01, F02, F03)."
+      - name: lots
+        description: "Journal des chargements (bilan par exécution)."
+
+  - name: catalogue
+    description: "Catalogue produit intégré en S2 (s2/sql/01_catalogue.sql)."
+    schema: public
+    tables:
+      - name: products
+        columns:
+          - name: product_id
+            tests: [unique, not_null]
+      - name: categories
+        columns:
+          - name: category_id
+            tests: [unique, not_null]

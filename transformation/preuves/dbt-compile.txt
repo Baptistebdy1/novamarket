@@ -1,0 +1,9 @@
+ Container novamarket-s1-dbt-run-8ff0d36a2a3b Creating 
+ Container novamarket-s1-dbt-run-8ff0d36a2a3b Created 
+Running with dbt=1.9.4
+Registered adapter: postgres=1.9.0
+Unable to do partial parsing because saved manifest not found. Starting full parse.
+Found 5 models, 25 data tests, 5 sources, 434 macros
+
+Concurrency: 2 threads (target='dev')
+

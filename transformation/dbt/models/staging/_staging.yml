@@ -1,0 +1,39 @@
+version: 2
+
+# Tests génériques du staging (exécutés par « dbt build » ou « dbt test »).
+models:
+  - name: stg_fournisseur__offres
+    description: "Offres harmonisées. Même grain et même volume que la source."
+    columns:
+      - name: fournisseur_id
+        tests: [not_null]
+      - name: offre_id
+        tests: [not_null]
+      - name: date_observation
+        tests: [not_null]
+      - name: devise
+        tests:
+          - accepted_values:
+              values: ["EUR"]
+      - name: produit_id
+        tests:
+          - not_null
+          # chaque offre pointe vers un produit connu du catalogue
+          - relationships:
+              to: ref('stg_catalogue__produits')
+              field: produit_id
+
+  - name: stg_catalogue__produits
+    columns:
+      - name: produit_id
+        tests: [unique, not_null]
+      - name: categorie_id
+        tests:
+          - relationships:
+              to: ref('stg_catalogue__categories')
+              field: categorie_id
+
+  - name: stg_catalogue__categories
+    columns:
+      - name: categorie_id
+        tests: [unique, not_null]

@@ -97,3 +97,33 @@ Le TP S3 ajoute une API locale `fournisseur` et un collecteur Python dans [inges
 
 - [Contrat HTTP, essais et bilan](ingestion/preuves.md).
 - [Offres valides à reprendre en S4](ingestion/data/valid/offres.jsonl).
+
+## Séance 4 · Chargement PostgreSQL et dbt
+
+- [Chargeur Python](transformation/chargement_postgres.py) : schéma `fournisseur`, une transaction par lot, rejeu sans doublon.
+- [Projet dbt](transformation/dbt/) : sources, staging, intermediate et premier mart.
+- [Preuves M1 à M5](transformation/preuves.md) : clé, rejeu, panne, rejets, volumes, SQL compilé.
+
+### Reproduire
+
+Après la reprise S1 et le chargement du catalogue S2 (24 produits), depuis `novamarket/`, avec le venv activé :
+
+```bash
+export NOVAMARKET_DSN='host=127.0.0.1 port=15432 dbname=novamarket user=atelier'
+# mot de passe : PGPASSFILE ou `read -rs PGPASSWORD; export PGPASSWORD`
+python transformation/chargement_postgres.py            # 1er passage : 20 insérées
+python transformation/chargement_postgres.py            # rejeu : 20 réutilisées, 0 doublon
+python transformation/chargement_postgres.py --panne-apres 5   # code 1, aucune écriture
+
+docker compose --profile transfo build dbt
+read -rs DBT_ENV_SECRET_PASSWORD; echo; export DBT_ENV_SECRET_PASSWORD DBT_DATABASE=novamarket
+docker compose --profile transfo run --rm --no-deps --user "$(id -u):$(id -g)" -w /projet \
+  -e DBT_ENV_SECRET_PASSWORD -e DBT_DATABASE dbt dbt build --profiles-dir /work/profil
+```
+
+### Limites rencontrées
+
+- Le kit reçu ne contenait pas le dossier `s4/`. Nous avons écrit un [Dockerfile](s4/Dockerfile) avec dbt 1.9 en versions figées. Nous avons aussi ajouté au service `dbt` du Compose le montage `./transformation/dbt:/projet`, qui manquait.
+- Le catalogue S2 n'était pas chargé dans le volume Docker. Il a été rechargé avec `s2/sql/01_catalogue.sql`.
+- Dans le lot S3, chaque produit n'a qu'un fournisseur et une date. Le mart ne compare donc pas encore vraiment les prix.
+- La règle `date_future` dépend de la date du chargement.

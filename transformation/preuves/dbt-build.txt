@@ -1,0 +1,72 @@
+ Container novamarket-s1-dbt-run-190608499653 Creating 
+ Container novamarket-s1-dbt-run-190608499653 Created 
+Running with dbt=1.9.4
+Registered adapter: postgres=1.9.0
+Found 5 models, 25 data tests, 5 sources, 434 macros
+
+Concurrency: 2 threads (target='dev')
+
+1 of 29 START test source_not_null_catalogue_categories_category_id ............ [RUN]
+2 of 29 START test source_not_null_catalogue_products_product_id ............... [RUN]
+1 of 29 PASS source_not_null_catalogue_categories_category_id .................. [PASS in 0.05s]
+2 of 29 PASS source_not_null_catalogue_products_product_id ..................... [PASS in 0.05s]
+3 of 29 START test source_not_null_fournisseur_offres_observations_observed_on . [RUN]
+4 of 29 START test source_not_null_fournisseur_offres_observations_offer_id .... [RUN]
+4 of 29 PASS source_not_null_fournisseur_offres_observations_offer_id .......... [PASS in 0.04s]
+3 of 29 PASS source_not_null_fournisseur_offres_observations_observed_on ....... [PASS in 0.04s]
+5 of 29 START test source_not_null_fournisseur_offres_observations_supplier_id . [RUN]
+6 of 29 START test source_unique_catalogue_categories_category_id .............. [RUN]
+6 of 29 PASS source_unique_catalogue_categories_category_id .................... [PASS in 0.02s]
+5 of 29 PASS source_not_null_fournisseur_offres_observations_supplier_id ....... [PASS in 0.03s]
+7 of 29 START test source_unique_catalogue_products_product_id ................. [RUN]
+8 of 29 START sql view model dbt_dev_staging.stg_catalogue__categories ......... [RUN]
+7 of 29 PASS source_unique_catalogue_products_product_id ....................... [PASS in 0.04s]
+9 of 29 START sql view model dbt_dev_staging.stg_fournisseur__offres ........... [RUN]
+8 of 29 OK created sql view model dbt_dev_staging.stg_catalogue__categories .... [CREATE VIEW in 0.07s]
+10 of 29 START sql view model dbt_dev_staging.stg_catalogue__produits .......... [RUN]
+9 of 29 OK created sql view model dbt_dev_staging.stg_fournisseur__offres ...... [CREATE VIEW in 0.05s]
+11 of 29 START test not_null_stg_catalogue__categories_categorie_id ............ [RUN]
+10 of 29 OK created sql view model dbt_dev_staging.stg_catalogue__produits ..... [CREATE VIEW in 0.04s]
+12 of 29 START test unique_stg_catalogue__categories_categorie_id .............. [RUN]
+11 of 29 PASS not_null_stg_catalogue__categories_categorie_id .................. [PASS in 0.02s]
+13 of 29 START test accepted_values_stg_fournisseur__offres_devise__EUR ........ [RUN]
+12 of 29 PASS unique_stg_catalogue__categories_categorie_id .................... [PASS in 0.02s]
+14 of 29 START test assert_grain_offres_unique ................................. [RUN]
+13 of 29 PASS accepted_values_stg_fournisseur__offres_devise__EUR .............. [PASS in 0.03s]
+15 of 29 START test not_null_stg_fournisseur__offres_date_observation .......... [RUN]
+14 of 29 PASS assert_grain_offres_unique ....................................... [PASS in 0.06s]
+16 of 29 START test not_null_stg_fournisseur__offres_fournisseur_id ............ [RUN]
+15 of 29 PASS not_null_stg_fournisseur__offres_date_observation ................ [PASS in 0.05s]
+17 of 29 START test not_null_stg_fournisseur__offres_offre_id .................. [RUN]
+16 of 29 PASS not_null_stg_fournisseur__offres_fournisseur_id .................. [PASS in 0.02s]
+18 of 29 START test not_null_stg_fournisseur__offres_produit_id ................ [RUN]
+17 of 29 PASS not_null_stg_fournisseur__offres_offre_id ........................ [PASS in 0.02s]
+19 of 29 START test not_null_stg_catalogue__produits_produit_id ................ [RUN]
+18 of 29 PASS not_null_stg_fournisseur__offres_produit_id ...................... [PASS in 0.02s]
+20 of 29 START test relationships_stg_catalogue__produits_categorie_id__categorie_id__ref_stg_catalogue__categories_  [RUN]
+19 of 29 PASS not_null_stg_catalogue__produits_produit_id ...................... [PASS in 0.02s]
+21 of 29 START test relationships_stg_fournisseur__offres_produit_id__produit_id__ref_stg_catalogue__produits_  [RUN]
+20 of 29 PASS relationships_stg_catalogue__produits_categorie_id__categorie_id__ref_stg_catalogue__categories_  [PASS in 0.03s]
+22 of 29 START test unique_stg_catalogue__produits_produit_id .................. [RUN]
+21 of 29 PASS relationships_stg_fournisseur__offres_produit_id__produit_id__ref_stg_catalogue__produits_  [PASS in 0.02s]
+22 of 29 PASS unique_stg_catalogue__produits_produit_id ........................ [PASS in 0.03s]
+23 of 29 START sql table model dbt_dev_marts.mart_offres_produit_jour .......... [RUN]
+23 of 29 OK created sql table model dbt_dev_marts.mart_offres_produit_jour ..... [SELECT 20 in 0.04s]
+24 of 29 START test assert_grain_mart_unique ................................... [RUN]
+25 of 29 START test assert_pas_de_multiplication ............................... [RUN]
+24 of 29 PASS assert_grain_mart_unique ......................................... [PASS in 0.02s]
+25 of 29 PASS assert_pas_de_multiplication ..................................... [PASS in 0.02s]
+26 of 29 START test not_null_mart_offres_produit_jour_date_observation ......... [RUN]
+27 of 29 START test not_null_mart_offres_produit_jour_fournisseur_moins_cher ... [RUN]
+27 of 29 PASS not_null_mart_offres_produit_jour_fournisseur_moins_cher ......... [PASS in 0.02s]
+26 of 29 PASS not_null_mart_offres_produit_jour_date_observation ............... [PASS in 0.02s]
+28 of 29 START test not_null_mart_offres_produit_jour_nb_offres ................ [RUN]
+29 of 29 START test not_null_mart_offres_produit_jour_produit_id ............... [RUN]
+29 of 29 PASS not_null_mart_offres_produit_jour_produit_id ..................... [PASS in 0.02s]
+28 of 29 PASS not_null_mart_offres_produit_jour_nb_offres ...................... [PASS in 0.02s]
+
+Finished running 1 table model, 25 data tests, 3 view models in 0 hours 0 minutes and 0.65 seconds (0.65s).
+
+Completed successfully
+
+Done. PASS=29 WARN=0 ERROR=0 SKIP=0 TOTAL=29

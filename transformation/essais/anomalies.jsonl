@@ -1,0 +1,12 @@
+{"offer_id": "O001", "supplier_id": "F01", "product_id": 1, "price_cents": 599, "currency": "EUR", "available_units": 2, "observed_on": "2026-11-24"}
+{"offer_id": "O001", "supplier_id": "F01", "product_id": 1, "price_cents": 610, "currency": "EUR", "available_units": 5, "observed_on": "2026-11-25"}
+{"offer_id": "O002", "supplier_id": "F02", "product_id": 2, "price_cents": 750, "currency": "EUR", "available_units": 4, "observed_on": "2026-11-24"}
+{"offer_id": "O090", "supplier_id": "F01", "product_id": 9999, "price_cents": 100, "currency": "EUR", "available_units": 1, "observed_on": "2026-11-24"}
+{"offer_id": "O091", "supplier_id": "F09", "product_id": 3, "price_cents": 100, "currency": "EUR", "available_units": 1, "observed_on": "2026-11-24"}
+{"offer_id": "O092", "supplier_id": "F02", "product_id": 3, "price_cents": 100, "currency": "USD", "available_units": 1, "observed_on": "2026-11-24"}
+{"offer_id": "O093", "supplier_id": "F02", "product_id": 3, "price_cents": -5, "currency": "EUR", "available_units": 1, "observed_on": "2026-11-24"}
+{"offer_id": "O094", "supplier_id": "F02", "product_id": 3, "price_cents": 100, "currency": "EUR", "available_units": 1, "observed_on": "24/11/2026"}
+{"offer_id": "O095", "supplier_id": "F02", "product_id": 3, "price_cents": 100, "currency": "EUR", "available_units": 1, "observed_on": "2099-01-01"}
+{"offer_id": "O096", "supplier_id": "F03", "product_id": "7", "price_cents": "1500", "currency": "EUR", "available_units": 3, "observed_on": "2026-11-25"}
+{"offer_id": "O096", "supplier_id": "F03", "product_id": 7, "price_cents": 1500, "currency": "EUR", "available_units": 3, "observed_on": "2026-11-25"}
+{"offer_id": "O097", "supplier_id": "F03", "product_id": 7

@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: mart_offres_produit_jour
+    description: "Grain : 1 produit × 1 date d'observation. Unicité testée dans tests/."
+    columns:
+      - name: date_observation
+        tests: [not_null]
+      - name: produit_id
+        tests: [not_null]
+      - name: nb_offres
+        tests: [not_null]
+      - name: fournisseur_moins_cher
+        tests: [not_null]

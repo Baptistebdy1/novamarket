@@ -1,0 +1,22 @@
+ Container novamarket-s1-dbt-run-0307beab7037 Creating 
+ Container novamarket-s1-dbt-run-0307beab7037 Created 
+Running with dbt=1.9.4
+Registered adapter: postgres=1.9.0
+Found 5 models, 25 data tests, 5 sources, 434 macros
+
+Concurrency: 2 threads (target='dev')
+
+1 of 4 START sql view model dbt_dev_staging.stg_catalogue__categories .......... [RUN]
+2 of 4 START sql view model dbt_dev_staging.stg_catalogue__produits ............ [RUN]
+2 of 4 OK created sql view model dbt_dev_staging.stg_catalogue__produits ....... [CREATE VIEW in 0.10s]
+1 of 4 OK created sql view model dbt_dev_staging.stg_catalogue__categories ..... [CREATE VIEW in 0.10s]
+3 of 4 START sql view model dbt_dev_staging.stg_fournisseur__offres ............ [RUN]
+3 of 4 OK created sql view model dbt_dev_staging.stg_fournisseur__offres ....... [CREATE VIEW in 0.03s]
+4 of 4 START sql table model dbt_dev_marts.mart_offres_produit_jour ............ [RUN]
+4 of 4 OK created sql table model dbt_dev_marts.mart_offres_produit_jour ....... [SELECT 20 in 0.05s]
+
+Finished running 1 table model, 3 view models in 0 hours 0 minutes and 0.30 seconds (0.30s).
+
+Completed successfully
+
+Done. PASS=4 WARN=0 ERROR=0 SKIP=0 TOTAL=4
